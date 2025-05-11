@@ -3,6 +3,9 @@ import { FaLinkedin, FaGithub, FaTelegram } from "react-icons/fa6";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 import { DiJavascript, DiPython } from "react-icons/di";
 import "../styles/HomePage.css";
+import Skills from "../components/Skills";
+import Roadmap from "../components/Roadmap";
+import Contact from "../components/Contact";
 import profileImg from "../assets/profile.JPG";
 
 const tokenize = (line, language) => {
@@ -140,16 +143,39 @@ learning_path = {
 print("Learning Path:", learning_path)`;
 
 const HomePage = () => {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme === null ? true : savedTheme === "dark";
+  });
   const [activeTab, setActiveTab] = useState("js");
   const [isVisible, setIsVisible] = useState(false);
   const [isAboutVisible, setIsAboutVisible] = useState(false);
+  const [typedText, setTypedText] = useState("");
+  const descriptionText =
+    "Enthusiastic learner diving into web and software development, aiming for a career in technology";
+
+  useEffect(() => {
+    let currentIndex = 0;
+    if (isVisible) {
+      const typingInterval = setInterval(() => {
+        if (currentIndex <= descriptionText.length) {
+          setTypedText(descriptionText.slice(0, currentIndex));
+          currentIndex++;
+        } else {
+          clearInterval(typingInterval);
+        }
+      }, 50); // Adjust typing speed here (milliseconds)
+
+      return () => clearInterval(typingInterval);
+    }
+  }, [isVisible]);
 
   useEffect(() => {
     document.documentElement.setAttribute(
       "data-theme",
       isDark ? "dark" : "light"
     );
+    localStorage.setItem("theme", isDark ? "dark" : "light");
   }, [isDark]);
 
   useEffect(() => {
@@ -244,10 +270,8 @@ const HomePage = () => {
               I'm a <span className="accent">{"{Code Newbie}"}</span>
             </div>
             <p className="description">
-              Enthusiastic learner diving into{" "}
-              <span className="accent">web</span> and{" "}
-              <span className="accent">software</span> development, aiming for a
-              career in technology
+              <span className="typing-text">{typedText}</span>
+              <span className="cursor"></span>
             </p>
 
             <div className="social-links">
@@ -341,6 +365,10 @@ const HomePage = () => {
             </div>
           </div>
         </div>
+
+        <Skills />
+        <Roadmap />
+        <Contact />
       </div>
     </div>
   );

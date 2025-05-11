@@ -366,6 +366,16 @@ nav {
   }
 }
 
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 /* Apply animations to elements */
 .hero-content > * {
   opacity: 0;
@@ -376,6 +386,20 @@ nav {
 * {
   transition: background-color 0.3s ease, color 0.3s ease,
     border-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.typing-text {
+  display: inline;
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background-color: var(--text-primary);
+  margin-left: 2px;
+  animation: blink 0.7s infinite;
+  vertical-align: middle;
 }
 
 .about-section {

@@ -1,0 +1,161 @@
+.contact-section {
+  padding: 4rem 2rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.contact-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.contact-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-left .tag {
+  color: var(--accent);
+  font-family: "Fira Code", monospace;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.contact-left h2 {
+  font-size: 3.5rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.contact-left p {
+  font-size: 3.5rem;
+  line-height: 1.2;
+  margin-top: 0.2rem;
+  margin-bottom: 0.3rem; /* Reduced from 2rem to 1rem */
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.contact-left .accent {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.contact-info {
+  margin: 1.5rem 0; /* Reduced from 3rem to 1.5rem */
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.info-icon {
+  font-size: 1.2rem;
+  color: var(--accent);
+  min-width: 24px;
+}
+
+.info-item span {
+  margin-left: 1rem;
+  opacity: 0.9;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  transform: translateY(-3px);
+}
+
+.contact-right form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem; /* Increased from 1.5rem to 2.5rem for more horizontal spacing */
+  margin-bottom: 1.5rem;
+}
+
+.form-row input,
+textarea {
+  width: 100%;
+  padding: 1.2rem;
+  background-color: var(--bg-secondary);
+  border: none;
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+textarea {
+  height: 150px;
+  resize: none;
+  margin-bottom: 1.5rem;
+}
+
+.send-message-btn {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: fit-content;
+}
+
+.send-message-btn:hover {
+  transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .contact-left h2 {
+    font-size: 2.5rem;
+  }
+
+  .contact-left p {
+    font-size: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
