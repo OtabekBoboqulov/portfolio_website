@@ -27,6 +27,8 @@
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--text-primary);
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 .logo span {
@@ -55,10 +57,30 @@ nav {
 .nav-links a {
   color: var(--text-primary);
   text-decoration: none;
-  opacity: 0.7;
-  transition: all 0.2s;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
   font-size: 1.1rem;
   font-weight: 500;
+}
+
+.nav-links a:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.nav-links a:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.nav-links a:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.nav-links a:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.nav-links a:nth-child(5) {
+  animation-delay: 0.5s;
 }
 
 .nav-links a:hover {
@@ -71,6 +93,7 @@ nav {
   font-size: 2rem;
   margin-bottom: 1rem;
   font-weight: 500;
+  animation-delay: 0.2s;
 }
 
 .name {
@@ -78,6 +101,7 @@ nav {
   margin: 0.5rem 0;
   font-weight: 600;
   line-height: 1.2;
+  animation-delay: 0.4s;
 }
 
 .role {
@@ -85,6 +109,7 @@ nav {
   margin: 1rem 0 1.5rem;
   font-weight: 500;
   line-height: 1.2;
+  animation-delay: 0.6s;
 }
 
 .description {
@@ -93,12 +118,14 @@ nav {
   line-height: 1.6;
   margin: 1.5rem 0;
   max-width: 540px;
+  animation-delay: 0.8s;
 }
 
 .social-links {
   display: flex;
   gap: 1.5rem;
   margin: 2rem 0;
+  animation-delay: 1s;
 }
 
 .social-links a {
@@ -116,6 +143,7 @@ nav {
   display: flex;
   gap: 1.5rem;
   margin-top: 2rem;
+  animation-delay: 1.2s;
 }
 
 .btn {
@@ -148,6 +176,8 @@ nav {
   display: flex;
   justify-content: flex-end;
   padding-left: 2rem;
+  opacity: 0;
+  animation: slideInRight 0.8s ease-out 0.4s forwards;
 }
 
 .code-preview {
@@ -287,6 +317,8 @@ nav {
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out 0.6s forwards;
 }
 
 .theme-toggle:hover {
@@ -300,4 +332,228 @@ nav {
   width: 20px !important;
   height: 20px !important;
   color: currentColor;
+}
+
+/* Animations */
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Apply animations to elements */
+.hero-content > * {
+  opacity: 0;
+  animation: slideUpFade 0.7s ease-out forwards;
+}
+
+/* Smooth transition for theme toggle */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.about-section {
+  margin: 6rem 0;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  visibility: hidden;
+}
+
+.about-section[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* Add staggered animation classes */
+.about-section .section-title,
+.about-section .about-text,
+.about-section .skills-categories,
+.about-section .about-image-card {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.about-section[data-visible="true"] .section-title {
+  animation: slideUpAndFade 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.about-section[data-visible="true"] .about-text {
+  animation: slideUpAndFade 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+}
+
+.about-section[data-visible="true"] .skills-categories {
+  animation: slideUpAndFade 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+}
+
+.about-section[data-visible="true"] .about-image-card {
+  animation: scaleInAndFade 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+}
+
+.about-section[data-visible="true"] .skill-item {
+  opacity: 0;
+  animation: popIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.about-section[data-visible="true"] .skill-item:nth-child(1) {
+  animation-delay: 0.5s;
+}
+.about-section[data-visible="true"] .skill-item:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.about-section[data-visible="true"] .skill-item:nth-child(5) {
+  animation-delay: 0.7s;
+}
+.about-section[data-visible="true"] .skill-item:nth-child(7) {
+  animation-delay: 0.8s;
+}
+
+@keyframes slideUpAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleInAndFade {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.about-container {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-content {
+  flex: 1;
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.about-image-card {
+  flex: 1;
+  max-width: 500px;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  background: var(--bg-secondary);
+}
+
+.profile-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.image-container:hover .profile-image {
+  transform: scale(1.05);
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.angle-bracket {
+  color: var(--accent);
+  font-family: "Monaco", monospace;
+}
+
+.about-text {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  font-family: "Monaco", "Menlo", monospace;
+}
+
+.skills-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.skill-item {
+  color: var(--accent);
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.skill-item:hover {
+  transform: translateY(-2px);
+}
+
+.separator {
+  color: var(--text-secondary);
+  opacity: 0.5;
 }

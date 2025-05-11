@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { FaLinkedin, FaGithub, FaXTwitter } from "react-icons/fa6";
+import { FaLinkedin, FaGithub, FaTelegram } from "react-icons/fa6";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 import { DiJavascript, DiPython } from "react-icons/di";
 import "../styles/HomePage.css";
+import profileImg from "../assets/profile.JPG";
 
 const tokenize = (line, language) => {
   const tokens = [];
@@ -141,6 +142,8 @@ print("Learning Path:", learning_path)`;
 const HomePage = () => {
   const [isDark, setIsDark] = useState(true);
   const [activeTab, setActiveTab] = useState("js");
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAboutVisible, setIsAboutVisible] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute(
@@ -148,6 +151,35 @@ const HomePage = () => {
       isDark ? "dark" : "light"
     );
   }, [isDark]);
+
+  useEffect(() => {
+    setIsVisible(true);
+
+    // Create intersection observer for About section
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsAboutVisible(true);
+          observer.unobserve(entry.target); // Stop observing once visible
+        }
+      },
+      {
+        threshold: 0.2, // Trigger when 20% of the section is visible
+      }
+    );
+
+    // Start observing the About section
+    const aboutSection = document.querySelector(".about-section");
+    if (aboutSection) {
+      observer.observe(aboutSection);
+    }
+
+    return () => {
+      if (aboutSection) {
+        observer.unobserve(aboutSection);
+      }
+    };
+  }, []);
 
   const renderCodeContent = (code) => {
     const lines = code.split("\n");
@@ -174,7 +206,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="HomePage">
+    <div className={`HomePage ${isVisible ? "visible" : ""}`}>
       <div className="content-wrapper">
         <nav>
           <div className="logo">
@@ -206,7 +238,7 @@ const HomePage = () => {
           <div className="hero-content">
             <div className="hello">&lt;Hello&gt;</div>
             <h1 className="name">
-              I'm <span className="accent">Ferdous Mikdad</span>
+              I'm <span className="accent">Shokhrukh</span>
             </h1>
             <div className="role">
               I'm a <span className="accent">{"{Code Newbie}"}</span>
@@ -234,11 +266,11 @@ const HomePage = () => {
                 <FaLinkedin />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://t.me/yourusername"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaXTwitter />
+                <FaTelegram />
               </a>
             </div>
 
@@ -272,6 +304,39 @@ const HomePage = () => {
               </div>
               <div className="code-content">
                 {renderCodeContent(activeTab === "js" ? jsCode : pyCode)}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="about-section" id="about" data-visible={isAboutVisible}>
+          <h2 className="section-title">
+            <span className="angle-bracket">&lt;</span>
+            About
+            <span className="angle-bracket">&gt;</span>
+          </h2>
+          <div className="about-container">
+            <div className="about-content">
+              <p className="about-text">
+                I am a highly motivated and versatile individual, always ready
+                to embrace new challenges. Driven by a passion for learning, I
+                am committed to delivering exceptional results. With a positive
+                attitude and a growth mindset, I am eager to make meaningful
+                contributions and achieve remarkable success.
+              </p>
+              <div className="skills-categories">
+                <span className="skill-item">Front End Development</span>
+                <span className="separator">|</span>
+                <span className="skill-item">Back End Development</span>
+                <span className="separator">|</span>
+                <span className="skill-item">Security Tool</span>
+                <span className="separator">|</span>
+                <span className="skill-item">Problem Solving</span>
+              </div>
+            </div>
+            <div className="about-image-card">
+              <div className="image-container">
+                <img src={profileImg} alt="Profile" className="profile-image" />
               </div>
             </div>
           </div>
