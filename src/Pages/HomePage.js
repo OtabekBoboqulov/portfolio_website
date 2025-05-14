@@ -313,7 +313,7 @@ const HomePage = () => {
                 className={`nav-links${navOpen ? " open" : ""}`}
                 role="navigation"
               >
-                <a href="#" onClick={() => setNavOpen(false)}>
+                <a href="#home" onClick={() => setNavOpen(false)}>
                   Home
                 </a>
                 <a href="#about" onClick={() => setNavOpen(false)}>
@@ -370,7 +370,7 @@ const HomePage = () => {
             </div>
           </div>
         </nav>
-        <div className="main-content">
+        <div id="home" className="main-content">
           <div className="hero-content">
             <div className="hello">&lt;Hello&gt;</div>
             <h1 className="name">

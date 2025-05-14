@@ -35,7 +35,7 @@ const Contact = ({ profileData }) => {
         observer.unobserve(sectionRef.current);
       }
     };
-  }, []);
+  }, [sectionRef]); // Added sectionRef as a dependency
 
   return (
     <div className="contact-section" id="contact" ref={sectionRef}>
