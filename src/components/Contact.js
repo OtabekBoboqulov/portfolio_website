@@ -1,87 +1,101 @@
-import React from "react";
-import {
-  FaTelegram,
-  FaWhatsapp,
-  FaFacebookF,
-  FaInstagram,
-  FaYoutube,
-  FaEnvelope,
-  FaPhoneAlt,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import React, { useEffect, useRef } from "react";
 import "../styles/Contact.css";
+import {
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaGithub,
+  FaLinkedin,
+} from "react-icons/fa";
 
-const Contact = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-  };
+const Contact = ({ profileData }) => {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "-50px",
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <section className="contact-section" id="contact">
+    <div className="contact-section" id="contact" ref={sectionRef}>
       <div className="contact-content">
         <div className="contact-left">
-          <span className="tag">&lt;Contact&gt;</span>
-          <h2>Let's Talk</h2>
+          <span className="tag">&lt;Get in Touch/&gt;</span>
+          <h2>Let's Build Something</h2>
           <p>
-            if you want know more about <span className="accent">me</span>
+            Together<span className="accent">.</span>
           </p>
 
           <div className="contact-info">
             <div className="info-item">
               <FaEnvelope className="info-icon" />
-              <span>shokhrukh.sharipov.2006@gmail.com</span>
+              <span>{profileData.email}</span>
             </div>
             <div className="info-item">
-              <FaPhoneAlt className="info-icon" />
-              <span>+998-91-447-65-08</span>
+              <FaPhone className="info-icon" />
+              <span>{profileData.phone}</span>
             </div>
             <div className="info-item">
               <FaMapMarkerAlt className="info-icon" />
-              <span>Chilonzor, Tashkent, Uzbekistan</span>
+              <span>{profileData.location}</span>
             </div>
           </div>
 
           <div className="social-links">
-            <a href="facebook.com" className="social-link">
-              <FaFacebookF />
-            </a>
-            <a href="https://www.whatsapp.com/" className="social-link">
-              <FaWhatsapp />
-            </a>
-            <a href="https://t.me/D3c0deM3" className="social-link">
-              <FaTelegram />
-            </a>
             <a
-              href="https://www.instagram.com/shokhrukh_108/"
+              href={profileData.github}
+              target="_blank"
+              rel="noopener noreferrer"
               className="social-link"
             >
-              <FaInstagram />
+              <FaGithub />
             </a>
-            <a href="youtube.com" className="social-link">
-              <FaYoutube />
+            <a
+              href={profileData.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-link"
+            >
+              <FaLinkedin />
             </a>
           </div>
         </div>
 
         <div className="contact-right">
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="form-row">
-              <input type="text" placeholder="Full Name*" required />
-              <input type="email" placeholder="Email Address*" required />
+              <input type="text" placeholder="Your Name" />
+              <input type="email" placeholder="Your Email" />
             </div>
-            <div className="form-row">
-              <input type="tel" placeholder="Phone Number" />
-              <input type="text" placeholder="Subject" />
-            </div>
-            <textarea placeholder="Write your massage*" required></textarea>
+            <textarea placeholder="Your Message"></textarea>
             <button type="submit" className="send-message-btn">
-              Send Us Message →
+              Send Message →
             </button>
           </form>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
