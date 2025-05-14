@@ -160,6 +160,21 @@ const HomePage = () => {
   const [profileData, setProfileData] = useState(null);
   const [navOpen, setNavOpen] = useState(false);
 
+  // Add scroll effect for nav
+  useEffect(() => {
+    const handleScroll = () => {
+      const nav = document.querySelector("nav");
+      if (window.scrollY > 20) {
+        nav?.classList.add("scrolled");
+      } else {
+        nav?.classList.remove("scrolled");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Close nav on route change or link click
   useEffect(() => {
     const closeNav = () => setNavOpen(false);
@@ -271,86 +286,88 @@ const HomePage = () => {
   return (
     <div className={`HomePage ${isVisible ? "visible" : ""}`}>
       <div className="content-wrapper">
-        <nav>
-          <div className="logo">
-            <span>{profileData.profile_data.name}</span>
-          </div>
-          <div className="nav-right">
-            {/* Hamburger icon for mobile */}
-            <button
-              className={`hamburger${navOpen ? " open" : ""}`}
-              aria-label={
-                navOpen ? "Close navigation menu" : "Open navigation menu"
-              }
-              aria-expanded={navOpen}
-              aria-controls="main-nav-links"
-              tabIndex={0}
-              onClick={() => setNavOpen((prev) => !prev)}
-              onKeyDown={handleHamburgerKey}
-            >
-              <span className="bar"></span>
-              <span className="bar"></span>
-              <span className="bar"></span>
-            </button>
-            <div
-              id="main-nav-links"
-              className={`nav-links${navOpen ? " open" : ""}`}
-              role="navigation"
-            >
-              <a href="#home" onClick={() => setNavOpen(false)}>
-                Home
-              </a>
-              <a href="#about" onClick={() => setNavOpen(false)}>
-                About
-              </a>
-              <a href="#skills" onClick={() => setNavOpen(false)}>
-                Skills
-              </a>
-              <a href="#roadmap" onClick={() => setNavOpen(false)}>
-                Roadmap
-              </a>
-              <a href="#contact" onClick={() => setNavOpen(false)}>
-                Contact
-              </a>
-              {/* iOS-style toggle for theme switcher in mobile nav */}
+        <nav className={navOpen ? "scrolled" : ""}>
+          <div className="nav-container">
+            <div className="logo">
+              <span>{profileData.profile_data.name}</span>
+            </div>
+            <div className="nav-right">
+              {/* Hamburger icon for mobile */}
               <button
-                className={`theme-toggle nav-theme-toggle${
-                  isDark ? " dark" : ""
-                }`}
+                className={`hamburger${navOpen ? " open" : ""}`}
+                aria-label={
+                  navOpen ? "Close navigation menu" : "Open navigation menu"
+                }
+                aria-expanded={navOpen}
+                aria-controls="main-nav-links"
+                tabIndex={0}
+                onClick={() => setNavOpen((prev) => !prev)}
+                onKeyDown={handleHamburgerKey}
+              >
+                <span className="bar"></span>
+                <span className="bar"></span>
+                <span className="bar"></span>
+              </button>
+              <div
+                id="main-nav-links"
+                className={`nav-links${navOpen ? " open" : ""}`}
+                role="navigation"
+              >
+                <a href="#" onClick={() => setNavOpen(false)}>
+                  Home
+                </a>
+                <a href="#about" onClick={() => setNavOpen(false)}>
+                  About
+                </a>
+                <a href="#skills" onClick={() => setNavOpen(false)}>
+                  Skills
+                </a>
+                <a href="#roadmap" onClick={() => setNavOpen(false)}>
+                  Roadmap
+                </a>
+                <a href="#contact" onClick={() => setNavOpen(false)}>
+                  Contact
+                </a>
+                {/* iOS-style toggle for theme switcher in mobile nav */}
+                <button
+                  className={`theme-toggle nav-theme-toggle${
+                    isDark ? " dark" : ""
+                  }`}
+                  onClick={() => setIsDark(!isDark)}
+                  aria-label="Toggle theme"
+                  style={{
+                    marginTop: 24,
+                    marginLeft: 0,
+                    background: "none",
+                    border: "none",
+                    boxShadow: "none",
+                    padding: 0,
+                  }}
+                >
+                  <span className="toggle-bg"></span>
+                  <span className="toggle-slider">
+                    {isDark ? (
+                      <span className="toggle-icon moon">&#9789;</span>
+                    ) : (
+                      <span className="toggle-icon sun">&#9728;</span>
+                    )}
+                  </span>
+                </button>
+              </div>
+              {/* Theme toggle for desktop only */}
+              <button
+                className="theme-toggle desktop-theme-toggle"
                 onClick={() => setIsDark(!isDark)}
                 aria-label="Toggle theme"
-                style={{
-                  marginTop: 24,
-                  marginLeft: 0,
-                  background: "none",
-                  border: "none",
-                  boxShadow: "none",
-                  padding: 0,
-                }}
+                style={{ marginLeft: 12 }}
               >
-                <span className="toggle-bg"></span>
-                <span className="toggle-slider">
-                  {isDark ? (
-                    <span className="toggle-icon moon">&#9789;</span>
-                  ) : (
-                    <span className="toggle-icon sun">&#9728;</span>
-                  )}
-                </span>
+                {isDark ? (
+                  <SunIcon className="theme-icon" />
+                ) : (
+                  <MoonIcon className="theme-icon" />
+                )}
               </button>
             </div>
-            {/* Theme toggle for desktop only */}
-            <button
-              className="theme-toggle desktop-theme-toggle"
-              onClick={() => setIsDark(!isDark)}
-              aria-label="Toggle theme"
-              style={{ marginLeft: 12 }}
-            >
-              {isDark ? (
-                <SunIcon className="theme-icon" />
-              ) : (
-                <MoonIcon className="theme-icon" />
-              )}
-            </button>
           </div>
         </nav>
         <div className="main-content">
