@@ -170,8 +170,76 @@ const Contact = ({ profileData }) => {
             </button>
           </form>
           {notification && (
-            <div className={`notification ${notification.type}`}>
-              {notification.text}
+            <div className={`verified-animation ${notification.type}`}>
+              <span className="icon">
+                {notification.type === "success" ? (
+                  // SVG Tick Icon
+                  <svg
+                    width="64"
+                    height="64"
+                    viewBox="0 0 64 64"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="32"
+                      cy="32"
+                      r="30"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                    />
+                    <path
+                      d="M20 34L29 43L44 24"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                ) : (
+                  // SVG X Icon
+                  <svg
+                    width="64"
+                    height="64"
+                    viewBox="0 0 64 64"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="32"
+                      cy="32"
+                      r="30"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                    />
+                    <path
+                      d="M24 24L40 40"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M40 24L24 40"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                )}
+              </span>
+              <span
+                className="notif-text"
+                style={{
+                  marginTop: "1rem",
+                  color: "#fff",
+                  fontSize: "1.1rem",
+                  textAlign: "center",
+                }}
+              >
+                {notification.text}
+              </span>
             </div>
           )}
         </div>
