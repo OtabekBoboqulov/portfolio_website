@@ -193,6 +193,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("Fetching data from API...");
         const response = await fetch(
           "https://portfolio-jv2f.onrender.com/api/data/",
           {
@@ -203,12 +204,25 @@ const HomePage = () => {
             body: JSON.stringify({ name: "Shokhrukh Sharipov" }),
           }
         );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log("Data received:", data);
+
+        if (!data || !data.profile_data) {
+          throw new Error("Invalid data format received from server");
+        }
+
         setProfileData(data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Detailed fetch error:", error);
         setLoading(false);
+        // Set an error state that we can show to the user
+        setProfileData(null);
       }
     };
 
@@ -274,9 +288,40 @@ const HomePage = () => {
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
-
   if (!profileData) {
-    return <div className="error">Error loading profile data</div>;
+    return (
+      <div
+        className="error"
+        style={{
+          padding: "20px",
+          textAlign: "center",
+          marginTop: "50px",
+          color: "var(--text-color)",
+        }}
+      >
+        <h2>Unable to load profile data</h2>
+        <p>
+          Please check your internet connection and try refreshing the page.
+        </p>
+        <p>
+          If the problem persists, the server might be temporarily unavailable.
+        </p>
+        <button
+          onClick={() => window.location.reload()}
+          style={{
+            padding: "10px 20px",
+            marginTop: "20px",
+            cursor: "pointer",
+            background: "var(--accent-color)",
+            border: "none",
+            borderRadius: "5px",
+            color: "white",
+          }}
+        >
+          Refresh Page
+        </button>
+      </div>
+    );
   }
 
   // Move name splitting logic here, after profileData is loaded
@@ -492,7 +537,10 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <Skills />
+        {/* Skills Section - tech-grid dynamic from API */}
+        {profileData.skills_data && profileData.skills_data.length > 0 && (
+          <Skills techSkills={profileData.skills_data} />
+        )}
         {/* Projects Section */}
         <div className="projects-section" id="projects">
           <h2 className="section-title">
@@ -565,7 +613,7 @@ const HomePage = () => {
         </div>
         <Roadmap
           experienceData={profileData.experience_data}
-          educationData={profileData.education_data}
+          projectsData={profileData.projects_data}
         />
         <Contact profileData={profileData.profile_data} />
       </div>

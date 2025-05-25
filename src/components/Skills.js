@@ -27,7 +27,7 @@ const iconMap = {
   adobexd: SiAdobexd,
 };
 
-const Skills = () => {
+const Skills = ({ techSkills }) => {
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const mainSkillsRef = useRef(null);
@@ -103,18 +103,29 @@ const Skills = () => {
       </div>
 
       <div className="tech-grid" ref={techGridRef}>
-        {skillsData.technologies.map((tech, index) => {
-          const Icon = iconMap[tech.icon];
-          return (
-            <div className="skill-card" key={index}>
+        {techSkills &&
+          techSkills.length > 0 &&
+          techSkills.map((tech, index) => (
+            <div className="skill-card" key={tech.id || index}>
               <div className="skill-icon">
-                <Icon style={{ color: tech.iconColor }} />
+                {tech.icon && tech.icon.includes("<svg") ? (
+                  <span
+                    className="svg-wrapper"
+                    dangerouslySetInnerHTML={{
+                      __html: tech.icon.replace(
+                        "<svg",
+                        '<svg class="api-svg-icon"'
+                      ),
+                    }}
+                  />
+                ) : (
+                  <span>{tech.name[0]}</span>
+                )}
               </div>
               <h3>{tech.name}</h3>
-              <p>{tech.description}</p>
+              {tech.description && <p>{tech.description}</p>}
             </div>
-          );
-        })}
+          ))}
       </div>
     </section>
   );

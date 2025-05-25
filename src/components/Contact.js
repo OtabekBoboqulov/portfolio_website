@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/Contact.css";
 import {
   FaEnvelope,
@@ -8,8 +8,16 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 
+const TELEGRAM_BOT_TOKEN = "7276771724:AAE2WFVAQGb0kA2eTiIokX54iJzpkaohZ6k";
+const TELEGRAM_USER_ID = "1508120182";
+
 const Contact = ({ profileData }) => {
   const sectionRef = useRef(null);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [notification, setNotification] = useState(null); // { type: 'success' | 'error', text: string }
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -38,6 +46,55 @@ const Contact = ({ profileData }) => {
     };
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!name.trim() || !phone.trim() || !message.trim()) {
+      setNotification({ type: "error", text: "Please fill in all fields." });
+      return;
+    }
+    setSending(true);
+    setNotification(null);
+    // Format message for Telegram
+    const text = `📩 <b>New Portfolio Message</b>\n\n<b>Name:</b> ${name}\n<b>Phone:</b> ${phone}\n<b>Message:</b> ${message}`;
+    try {
+      const res = await fetch(
+        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_USER_ID,
+            text,
+            parse_mode: "HTML",
+          }),
+        }
+      );
+      const data = await res.json();
+      if (data.ok) {
+        setNotification({
+          type: "success",
+          text: "Message sent successfully!",
+        });
+        setName("");
+        setPhone("");
+        setMessage("");
+      } else {
+        setNotification({
+          type: "error",
+          text: "Failed to send message. Please try again.",
+        });
+      }
+    } catch (err) {
+      setNotification({
+        type: "error",
+        text: "Failed to send message. Please try again.",
+      });
+    } finally {
+      setSending(false);
+      setTimeout(() => setNotification(null), 4000);
+    }
+  };
+
   return (
     <div className="contact-section" id="contact" ref={sectionRef}>
       <div className="contact-content">
@@ -47,7 +104,6 @@ const Contact = ({ profileData }) => {
           <p>
             Together<span className="accent">.</span>
           </p>
-
           <div className="contact-info">
             <div className="info-item">
               <FaEnvelope className="info-icon" />
@@ -62,7 +118,6 @@ const Contact = ({ profileData }) => {
               <span>{profileData.location}</span>
             </div>
           </div>
-
           <div className="social-links">
             <a
               href={profileData.github}
@@ -82,18 +137,43 @@ const Contact = ({ profileData }) => {
             </a>
           </div>
         </div>
-
         <div className="contact-right">
-          <form>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <div className="form-row">
-              <input type="text" placeholder="Your Name" />
-              <input type="email" placeholder="Your Email" />
+              <input
+                type="text"
+                placeholder="Your Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={sending}
+              />
+              <input
+                type="tel"
+                placeholder="Your Phone Number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                disabled={sending}
+              />
             </div>
-            <textarea placeholder="Your Message"></textarea>
-            <button type="submit" className="send-message-btn">
-              Send Message →
+            <textarea
+              placeholder="Your Message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              disabled={sending}
+            ></textarea>
+            <button
+              type="submit"
+              className="send-message-btn"
+              disabled={sending}
+            >
+              {sending ? "Sending..." : "Send Message →"}
             </button>
           </form>
+          {notification && (
+            <div className={`notification ${notification.type}`}>
+              {notification.text}
+            </div>
+          )}
         </div>
       </div>
     </div>

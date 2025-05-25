@@ -486,6 +486,16 @@ nav.scrolled {
   content: none !important;
 }
 
+/* Fix anchor scroll offset for sticky navbar */
+#about,
+#skills,
+#roadmap,
+#contact,
+#projects,
+#education {
+  scroll-margin-top: 5rem;
+}
+
 /* Add staggered animation classes */
 .about-section .section-title,
 .about-section .about-text,
@@ -1456,4 +1466,14 @@ nav.scrolled {
     justify-content: flex-start;
     text-align: left;
   }
+}
+
+.projects-section,
+.education-section,
+.about-section,
+.contact-section {
+  opacity: 1 !important;
+  transform: none !important;
+  will-change: unset !important;
+  transition: none !important;
 }
