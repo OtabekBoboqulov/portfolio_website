@@ -8,8 +8,8 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 
-const TELEGRAM_BOT_TOKEN = "7276771724:AAE2WFVAQGb0kA2eTiIokX54iJzpkaohZ6k";
-const TELEGRAM_USER_ID = "1508120182";
+const TELEGRAM_BOT_TOKEN = process.env.REACT_APP_TELEGRAM_BOT_TOKEN;
+const TELEGRAM_USER_ID = process.env.REACT_APP_TELEGRAM_USER_ID;
 
 const Contact = ({ profileData }) => {
   const sectionRef = useRef(null);
