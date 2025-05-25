@@ -339,6 +339,218 @@ textarea {
   }
 }
 
+@media (max-width: 600px) {
+  .contact-section {
+    padding: 2.5rem 0.5rem;
+  }
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0;
+  }
+  .contact-left {
+    align-items: flex-start;
+    text-align: left;
+    padding: 0 0.5rem;
+  }
+  .contact-left h2,
+  .contact-left p {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  .contact-info {
+    margin: 1rem 0;
+  }
+  .info-item {
+    font-size: 0.95rem;
+    margin: 1rem 0;
+  }
+  .contact-right {
+    padding: 0 0.5rem;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .form-row input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.7rem 1rem;
+  }
+  textarea {
+    font-size: 1rem;
+    padding: 0.7rem 1rem;
+    min-height: 110px;
+  }
+  .send-message-btn {
+    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
+    width: 100%;
+    margin-top: 0.7rem;
+  }
+  .notification {
+    top: 1.2rem;
+    right: 1.2rem;
+    left: auto;
+    bottom: auto;
+    min-width: 220px;
+    max-width: 90vw;
+    font-size: 1rem;
+    padding: 0.9rem 1.2rem 0.9rem 1rem;
+    border-radius: 7px;
+    animation: slideInNotifMobile 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@media (max-width: 400px) {
+  .contact-section {
+    padding: 0.5rem 0.5rem;
+  }
+  .contact-content {
+    padding: 0;
+  }
+  .contact-left h2,
+  .contact-left p {
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .contact-left .tag {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .contact-info {
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .info-item {
+    justify-content: center;
+  }
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .form-row input {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    font-size: 0.9rem;
+    padding: 0.7rem 1rem;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+  textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    font-size: 0.9rem;
+    padding: 0.7rem 1rem;
+    min-height: 70px;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+  .send-message-btn {
+    font-size: 0.9rem;
+    padding: 0.7rem 1rem;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0.3rem;
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 332px) {
+  .contact-section {
+    padding: 0.3rem 0.1rem;
+  }
+  .contact-content {
+    padding: 0;
+  }
+  .contact-left h2,
+  .contact-left p {
+    font-size: 0.85rem;
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .contact-left .tag {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .contact-info {
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .info-item {
+    justify-content: center;
+    font-size: 0.85rem;
+  }
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .form-row input {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.7rem;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+  textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.7rem;
+    min-height: 55px;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+  .send-message-btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.7rem;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0.2rem;
+    border-radius: 4px;
+  }
+}
+
 /* Light/Dark Mode Transitions */
 .contact-section,
 .contact-content,
