@@ -1,31 +1,31 @@
 import React, { useEffect, useRef } from "react";
-import skillsData from "../data/skills.json";
-import {
-  FaHtml5,
-  FaCss3Alt,
-  FaJs,
-  FaReact,
-  FaNodeJs,
-  FaGithub,
-  FaFigma,
-  FaCode,
-} from "react-icons/fa";
-import { SiTailwindcss, SiMongodb, SiAdobexd } from "react-icons/si";
+// import skillsData from "../data/skills.json";
+// import {
+//   FaHtml5,
+//   FaCss3Alt,
+//   FaJs,
+//   FaReact,
+//   FaNodeJs,
+//   FaGithub,
+//   FaFigma,
+//   FaCode,
+// } from "react-icons/fa";
+// import { SiTailwindcss, SiMongodb, SiAdobexd } from "react-icons/si";
 import "../styles/Skills.css";
 
-const iconMap = {
-  html5: FaHtml5,
-  css3: FaCss3Alt,
-  js: FaJs,
-  react: FaReact,
-  node: FaNodeJs,
-  tailwind: SiTailwindcss,
-  mongodb: SiMongodb,
-  github: FaGithub,
-  vscode: FaCode,
-  figma: FaFigma,
-  adobexd: SiAdobexd,
-};
+// const iconMap = {
+//   html5: FaHtml5,
+//   css3: FaCss3Alt,
+//   js: FaJs,
+//   react: FaReact,
+//   node: FaNodeJs,
+//   tailwind: SiTailwindcss,
+//   mongodb: SiMongodb,
+//   github: FaGithub,
+//   vscode: FaCode,
+//   figma: FaFigma,
+//   adobexd: SiAdobexd,
+// };
 
 const Skills = ({ techSkills, language_data }) => {
   const sectionRef = useRef(null);
