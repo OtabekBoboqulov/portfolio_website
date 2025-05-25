@@ -193,7 +193,6 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fetching data from API...");
         const response = await fetch(
           "https://portfolio-jv2f.onrender.com/api/data/",
           {
@@ -210,7 +209,6 @@ const HomePage = () => {
         }
 
         const data = await response.json();
-        console.log("Data received:", data);
 
         if (!data || !data.profile_data) {
           throw new Error("Invalid data format received from server");
@@ -539,7 +537,10 @@ const HomePage = () => {
         </div>
         {/* Skills Section - tech-grid dynamic from API */}
         {profileData.skills_data && profileData.skills_data.length > 0 && (
-          <Skills techSkills={profileData.skills_data} />
+          <Skills
+            techSkills={profileData.skills_data}
+            language_data={profileData.language_data}
+          />
         )}
         {/* Projects Section */}
         <div className="projects-section" id="projects">
