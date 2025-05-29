@@ -200,7 +200,7 @@ const HomePage = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ name: "Shokhrukh Sharipov" }),
+            body: JSON.stringify({ name: "Otabek Boboqulov" }),
           }
         );
 
