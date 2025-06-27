@@ -375,17 +375,17 @@ const HomePage = () => {
                 <button
                   className={`theme-toggle nav-theme-toggle${
                     isDark ? " dark" : ""
-                  } mt-6`}
+                  }`}
                   onClick={() => setIsDark(!isDark)}
                   aria-label="Toggle theme"
-                  // style={{
-                  //   marginTop: 24,
-                  //   marginLeft: 0,
-                  //   background: "none",
-                  //   border: "none",
-                  //   boxShadow: "none",
-                  //   padding: 0,
-                  // }}
+                  style={{
+                    marginTop: 24,
+                    marginLeft: 0,
+                    background: "none",
+                    border: "none",
+                    boxShadow: "none",
+                    padding: 0,
+                  }}
                 >
                   <span className="toggle-bg"></span>
                   <span className="toggle-slider">
