@@ -108,8 +108,6 @@ nav.scrolled {
 .nav-links {
   display: flex;
   gap: 1.5rem;
-  flex-wrap: wrap;
-  overflow: visible;
 }
 
 .nav-links a {
@@ -1300,7 +1298,7 @@ nav.scrolled {
     background: none;
     box-shadow: none;
     padding: 0;
-    gap: 1rem;
+    gap: 1.5rem;
     opacity: 1;
     pointer-events: auto;
     transform: none;
