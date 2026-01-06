@@ -593,17 +593,19 @@ const HomePage = () => {
                   <p className="project-description">
                     {truncateText(project.description, 100)}
                   </p>
-                  <div className="project-tech">{project.technologies}</div>
+                  <div className="project-tech">{project.technologies.replace(/[{}]/g, "")}</div>
                   <div className="project-links">
-                    <a
-                      href={project.project_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-primary"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      Live Demo
-                    </a>
+                    {project.project_url && (
+                      <a
+                        href={project.project_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-primary"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Live Demo
+                      </a>
+                    )}
                     <a
                       href={project.github_url}
                       target="_blank"
@@ -672,16 +674,18 @@ const HomePage = () => {
               <div className="modal-body">
                 <h3>{selectedProject.title}</h3>
                 <p className="modal-description">{selectedProject.description}</p>
-                <div className="modal-tech">{selectedProject.technologies}</div>
+                <div className="modal-tech">{selectedProject.technologies.replace(/[{}]/g, "")}</div>
                 <div className="modal-links">
-                  <a
-                    href={selectedProject.project_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-primary"
-                  >
-                    Live Demo
-                  </a>
+                  {selectedProject.project_url && (
+                    <a
+                      href={selectedProject.project_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary"
+                    >
+                      Live Demo
+                    </a>
+                  )}
                   <a
                     href={selectedProject.github_url}
                     target="_blank"
