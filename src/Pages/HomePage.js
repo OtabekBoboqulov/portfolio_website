@@ -593,7 +593,7 @@ const HomePage = () => {
                   <p className="project-description">
                     {truncateText(project.description, 100)}
                   </p>
-                  <div className="project-tech">{project.technologies.replace(/[{}]/g, "")}</div>
+                  <div className="project-tech">{project.technologies.replace(/[{}"']/g, "")}</div>
                   <div className="project-links">
                     {project.project_url && (
                       <a
@@ -674,7 +674,7 @@ const HomePage = () => {
               <div className="modal-body">
                 <h3>{selectedProject.title}</h3>
                 <p className="modal-description">{selectedProject.description}</p>
-                <div className="modal-tech">{selectedProject.technologies.replace(/[{}]/g, "")}</div>
+                <div className="modal-tech">{selectedProject.technologies.replace(/[{}"']/g, "")}</div>
                 <div className="modal-links">
                   {selectedProject.project_url && (
                     <a
