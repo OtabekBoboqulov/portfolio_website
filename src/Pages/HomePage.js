@@ -115,6 +115,11 @@ const splitName = (name) => {
   return name.trim().split(/\s+/);
 };
 
+const truncateText = (text, maxLength = 100) => {
+  if (!text || typeof text !== "string") return "";
+  return text.length > maxLength ? `${text.slice(0, maxLength).trim()}...` : text;
+};
+
 const jsCode = `// Code Editor Preview
 const learningPath = {
     frontEnd: [
@@ -159,6 +164,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [profileData, setProfileData] = useState(null);
   const [navOpen, setNavOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   // Add scroll effect for nav
   useEffect(() => {
@@ -259,6 +265,18 @@ const HomePage = () => {
     setIsAboutVisible(true);
   }, []);
 
+  // Prevent body scroll when modal open
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedProject]);
+
   const renderCodeContent = (code) => {
     const lines = code.split("\n");
     return (
@@ -325,6 +343,9 @@ const HomePage = () => {
   // Move name splitting logic here, after profileData is loaded
   const fullNameList = splitName(profileData.profile_data.name);
   const firstName = fullNameList[0];
+
+  const openProjectModal = (project) => setSelectedProject(project);
+  const closeProjectModal = () => setSelectedProject(null);
 
   return (
     <div className={`HomePage ${isVisible ? "visible" : ""}`}>
@@ -551,7 +572,16 @@ const HomePage = () => {
           </h2>
           <div className="projects-container">
             {profileData.projects_data.map((project) => (
-              <div key={project.id} className="project-card">
+              <div
+                key={project.id}
+                className="project-card"
+                onClick={() => openProjectModal(project)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") openProjectModal(project);
+                }}
+                role="button"
+                tabIndex={0}
+              >
                 <div className="project-image">
                   <img
                     src={`https://res.cloudinary.com/bnf404/${project.image}`}
@@ -560,7 +590,9 @@ const HomePage = () => {
                 </div>
                 <div className="project-content">
                   <h3>{project.title}</h3>
-                  <p className="project-description">{project.description}</p>
+                  <p className="project-description">
+                    {truncateText(project.description, 100)}
+                  </p>
                   <div className="project-tech">{project.technologies}</div>
                   <div className="project-links">
                     <a
@@ -568,6 +600,7 @@ const HomePage = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-primary"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       Live Demo
                     </a>
@@ -576,6 +609,7 @@ const HomePage = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-secondary"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       GitHub
                     </a>
@@ -617,6 +651,50 @@ const HomePage = () => {
           projectsData={profileData.projects_data}
         />
         <Contact profileData={profileData.profile_data} />
+        {selectedProject && (
+          <div className="modal-overlay" onClick={closeProjectModal}>
+            <div
+              className="modal-content"
+              onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Project details for ${selectedProject.title}`}
+            >
+              <button className="modal-close" onClick={closeProjectModal} aria-label="Close">
+                ×
+              </button>
+              <div className="modal-image">
+                <img
+                  src={`https://res.cloudinary.com/bnf404/${selectedProject.image}`}
+                  alt={selectedProject.title}
+                />
+              </div>
+              <div className="modal-body">
+                <h3>{selectedProject.title}</h3>
+                <p className="modal-description">{selectedProject.description}</p>
+                <div className="modal-tech">{selectedProject.technologies}</div>
+                <div className="modal-links">
+                  <a
+                    href={selectedProject.project_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                  >
+                    Live Demo
+                  </a>
+                  <a
+                    href={selectedProject.github_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary"
+                  >
+                    GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
