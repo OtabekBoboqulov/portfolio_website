@@ -6,6 +6,7 @@ import "../styles/HomePage.css";
 import Skills from "../components/Skills";
 import Roadmap from "../components/Roadmap";
 import Contact from "../components/Contact";
+import Certificates from "../components/Certificates";
 
 const tokenize = (line, language) => {
   const tokens = [];
@@ -389,6 +390,9 @@ const HomePage = () => {
                 <a href="#roadmap" onClick={() => setNavOpen(false)}>
                   Roadmap
                 </a>
+                <a href="#certificates" onClick={() => setNavOpen(false)}>
+                  Certificates
+                </a>
                 <a href="#contact" onClick={() => setNavOpen(false)}>
                   Contact
                 </a>
@@ -648,6 +652,13 @@ const HomePage = () => {
             ))}
           </div>
         </div>
+        {/* Certificates Section */}
+        {profileData.certificates_data &&
+          profileData.certificates_data.length > 0 && (
+            <Certificates
+              certificatesData={profileData.certificates_data}
+            />
+          )}
         <Roadmap
           experienceData={profileData.experience_data}
           projectsData={profileData.projects_data}
