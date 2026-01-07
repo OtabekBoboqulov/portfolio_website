@@ -166,6 +166,7 @@ const HomePage = () => {
   const [profileData, setProfileData] = useState(null);
   const [navOpen, setNavOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
 
   // Add scroll effect for nav
   useEffect(() => {
@@ -348,6 +349,15 @@ const HomePage = () => {
   const openProjectModal = (project) => setSelectedProject(project);
   const closeProjectModal = () => setSelectedProject(null);
 
+  const openCertificateModal = (certificate) => {
+    setSelectedCertificate(certificate);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeCertificateModal = () => {
+    setSelectedCertificate(null);
+    document.body.style.overflow = "";
+  };
   return (
     <div className={`HomePage ${isVisible ? "visible" : ""}`}>
       <div className="content-wrapper">
@@ -657,6 +667,7 @@ const HomePage = () => {
           profileData.certificates_data.length > 0 && (
             <Certificates
               certificatesData={profileData.certificates_data}
+              openCertificateModal={openCertificateModal}
             />
           )}
         <Roadmap
@@ -707,6 +718,28 @@ const HomePage = () => {
                   </a>
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {selectedCertificate && (
+          <div className="modal-overlay" onClick={closeCertificateModal}>
+            <div
+              className="certificate-modal-content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="modal-close"
+                onClick={closeCertificateModal}
+                aria-label="Close"
+              >
+                ×
+              </button>
+              <img
+                src={`https://res.cloudinary.com/bnf404/${selectedCertificate.image}`}
+                alt={selectedCertificate.name}
+                className="certificate-modal-image"
+              />
             </div>
           </div>
         )}
