@@ -1,6 +1,6 @@
 import React from "react";
 
-const Certificates = ({ certificatesData }) => {
+const Certificates = ({ certificatesData, openCertificateModal }) => {
   if (!certificatesData || certificatesData.length === 0) {
     return null;
   }
@@ -18,6 +18,7 @@ const Certificates = ({ certificatesData }) => {
             key={index}
             className="certificate-card"
             style={{ "--delay": index + 1 }}
+            onClick={() => openCertificateModal(certificate)}
           >
             <div className="certificate-image">
               <img
